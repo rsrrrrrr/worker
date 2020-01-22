@@ -1,0 +1,2782 @@
+@@ -0,0 +1,1867 @@
+@@ -0,0 +1,78 @@Install Docker MachineEstimated reading time: 3 minutesOn macOS and Windows, Machine is installed along with other Docker products when you install the Docker for Mac, Docker for Windows, or Docker Toolbox.
+If you want only Docker Machine, you can install the Machine binaries directly by following the instructions in the next section. You can find the latest versions of the binaries on the docker/machine release page on GitHub.
+Install Machine directlyInstall Docker.
+Download the Docker Machine binary and extract it to your PATH.
+If you are running macOS:
+$ base=https://github.com/docker/machine/releases/download/v0.16.0 && curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/usr/local/bin/docker-machine && chmod +x /usr/local/bin/docker-machineIf you are running Linux:
+$ base=https://github.com/docker/machine/releases/download/v0.16.0 && curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine && sudo mv /tmp/docker-machine /usr/local/bin/docker-machine && chmod +x /usr/local/bin/docker-machineIf you are running Windows with Git BASH:
+$ base=https://github.com/docker/machine/releases/download/v0.16.0 && mkdir -p "$HOME/bin" && curl -L $base/docker-machine-Windows-x86_64.exe > "$HOME/bin/docker-machine.exe" && chmod +x "$HOME/bin/docker-machine.exe"The above command works on Windows only if you use a terminal emulator such as Git BASH, which supports Linux commands like chmod.
+Otherwise, download one of the releases from the docker/machine release page directly.
+Check the installation by displaying the Machine version:
+$ docker-machine versiondocker-machine version 0.16.0, build 9371605Install bash completion scriptsThe Machine repository supplies several bash scripts that add features such as:
+command completiona function that displays the active machine in your shell prompta function wrapper that adds a docker-machine use subcommand to switch the active machine
+
+
+
+
+@@ -25,6 +25,8 @@ EXPOSE 9333# ZeroMQ port.EXPOSE 9334
+RUN echo 'alias cli="bitcoin-cash-cli -rpcuser=$BITCOIN_CASH_RPC_USER -rpcpassword=$BITCOIN_CASH_RPC_PASSWORD"' > /root/.bash_aliases
+# Copying required binaries from builder stage.COPY --from=builder bitcoind /usr/local/bin/bitcoin-cashdCOPY --from=builder bitcoin-cli /usr/local/bin/bitcoin-cash-cli
+
+@@ -25,6 +25,8 @@ EXPOSE 8333# ZeroMQ port.EXPOSE 8334
+RUN echo 'alias cli="bitcoin-cli -rpcuser=$BITCOIN_RPC_USER -rpcpassword=$BITCOIN_RPC_PASSWORD"' > /root/.bash_aliases
+# Copying required binaries from builder stage.COPY --from=builder bitcoind bitcoin-cli /usr/local/bin/
+
+ @@ -25,6 +25,8 @@ EXPOSE 10333# ZeroMQ port.EXPOSE 10334
+RUN echo 'alias cli="dash-cli -rpcuser=$DASH_RPC_USER -rpcpassword=$DASH_RPC_PASSWORD"' > /root/.bash_aliases
+# Copying required binaries from builder stage.COPY --from=builder dashd dash-cli /usr/local/bin/
+
+ @@ -25,6 +25,8 @@ EXPOSE 10333# ZeroMQ port.EXPOSE 10334
+RUN echo 'alias cli="dash-cli -rpcuser=$DASH_RPC_USER -rpcpassword=$DASH_RPC_PASSWORD"' > /root/.bash_aliases
+# Copying required binaries from builder stage.COPY --from=builder dashd dash-cli /usr/local/bin/
+@@ -0,0 +1,9 @@ @@ -25,6 +25,8 @@ EXPOSE 12345 
+ZeroMQ port.
+EXPOSE 12345
+
+RUN echo 'alias cli="wcc-worldcash-cli -rpcuser=$WCC_WORLDCASH_RPC_USER -rpcpassword=$WCC_WORLDCASH_RPC_PASSWORD"' > /root/.bash_aliases
+
+Copying required binaries from builder stage.
+COPY --from=builder bitcoind /usr/local/bin/wcc-worldcash COPY --from=builder bitcoin-cli /usr/local/bin/wcc-worldcash-cli
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138676911-1" type="d0a6dbc59700fd1d73648dec-text/javascript"></script> <script type="d0a6dbc59700fd1d73648dec-text/javascript"> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-138676911-1'); </script> <title>Enlte - A decentralised SocioNet</title> <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="d0a6dbc59700fd1d73648dec-text/javascript"></script> <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bo
+Added by rsrrrrrr
+Press enter to move this card
+Automated as In progress 
+@@ -0,0 +1,8 @@@@ -25,6 +25,8 @@ EXPOSE 12345ZeroMQ port.EXPOSE 12345
+@@ -0,0 +12345 @@
+# Copying required binaries from builder stage.COPY --from=builder d dash-cli /usr/local/bin/
+@@ -0,0 +1,8@@@@ -25,6 +25,8 @@ EXPOSE 12345
+# Copying required binaries from builder stage.COPY --from=builder dashd dash-cli /usr/local/bin/
+ZeroMQ port.
+EXPOSE 12345
+
+RUN echo 'alias cli="wcc-worldcash-cli -rpcuser=$WCC_WORLDCASH_RPC_USER -rpcpassword=$WCC_WORLDCASH_RPC_PASSWORD"' > /root/.bash_aliases
+
+
+@@ -0,0 +12345 @@@@ -25,6 +25,8 @@ EXPOSE 1,912# ZeroMQ port.EXPOSE 1,912
+ZeroMQ port.
+EXPOSE 1.912
+# Copying required binaries from builder stage.COPY --from=builder dashd dash-cli /usr/local/bin/
+RUN echo 'alias cli="wcc-worldcash-cli -rpcuser=$WCC_WORLDCASH_RPC_USER -rpcpassword=$WCC_WORLDCASH_RPC_PASSWORD"' > /root/.bash_aliases
+
+@@ -0,0 +12345 @@@@ -25,6 +25,8 @@ EXPOSE 1,912# ZeroMQ port.EXPOSE 1,912
+ZeroMQ port.
+ERUN echo 'alias cli="wcc-worldcash-cli -rpcuser=$WCC_WORLDCASH_RPC_USER -rpcpassword=$WCC_WORLDCASH_RPC_PASSWORD"' > /root/.bash_aliases 
+@@ -0,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A decentralized blockchain based system to 
+solve any kind of issues and problems without going through a 
+
+centralised government or an organisation by rewarding users to spread 
+
+awareness and help each other.">
+<meta name="author" content="">
+<meta name="google-site-verification" content="uZBkT2z6iGP-rEZ-rHkyaF10engh2szi61NgnSFQJ2k" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138676911-1" type="15A3npQyd8Xcagm99tEdsGmGbp7hLjunGs-text/javascript"></script
+<script type="15A3npQyd8Xcagm99tEdsGmGbp7hLjunGs-text/javascript">
+window.dataLayer = window.dataLayer || [];
+
+function gtag(){dataLayer.push(arguments);}
+
+gtag('js', new Date());
+
+
+
+gtag('config', 'UA-138676911-1');
+
+</script>
+<title>Enlte - A decentralised SocioNet</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="type="15A3npQyd8Xcagm99tEdsGmGbp7hLjunGs-text/javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="15A3npQyd8Xcagm99tEdsGmGbp7hLjunGs-text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="15A3npQyd8Xcagm99tEdsGmGbp7hLjunGs-text/javascript"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous" type="d0a6dbc59700fd1d73648dec-text/javascript"></script><script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous" type="15A3npQyd8Xcagm99tEdsGmGbp7hLjunGs-text/javascript"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js" type="15A3npQyd8Xcagm99tEdsGmGbp7hLjunGs-text/javascript"></script>
+<link rel="icon" type="image/png" href="enlte.png" />
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<link href="css/animationn.css" rel="stylesheet">
+<script type="15A3npQyd8Xcagm99tEdsGmGbp7hLjunGs-text/javascript
+" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script type="15A3npQyd8Xcagm99tEdsGmGbp7hLjunGs-text/javascript
+" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="15A3npQyd8Xcagm99tEdsGmGbp7hLjunGs-text/javascript">
+
+$(window).load(function(){
+
+$('.loader').fadeOut();
+
+});
+
+
+
+</script>
+<script type="15A3npQyd8Xcagm99tEdsGmGbp7hLjunGs-text/javascript">
+
+var myTimeone = "America/Toronto";
+
+var countDownDate = new Date("September 7, 2018 23:59:50 GMT -07:00" ).getTime(); 
+// Update the count down every 1 second 
+var x = setInterval(function() { 
+// Get today's date and time 
+var now = new Date().getTime(); 
+// Find the distance between now and the target date 
+var distance = countDownDate - now; 
+// Time calculations for days, hours, minutes and seconds 
+var days = Math.floor(distance / (1000 * 60 * 60 * 24)); 
+var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 
+60 * 60)); 
+var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 
+60)); 
+var seconds = Math.floor((distance % (1000 * 60)) / 1000); 
+
+var miliseconds = Math.floor((distance % (1000 * 60 * 60 * 24 )) / 1000); 
+
+// Output the result in an element with id="demo" 
+document.getElementById("days").innerHTML = days+"\n" + " DAYS"; 
+document.getElementById("hours").innerHTML = hours + "h : "; 
+document.getElementById("minutes").innerHTML = minutes + "m : " 
+document.getElementById("seconds").innerHTML = seconds + "s"; 
+document.getElementByClassName("box-counter hours").innerHTML = hours; 
+// If the count down is over, write some text 
+if (distance < 0) { 
+clearInterval(x); 
+document.getElementByClassName("demo").innerHTML = "EXPIRED"; 
+} 
+}, 1000); 
+</script>
+<style> 
+/* 
+Credit to the bootstrap team for making an amazing framework 
+Credit to me for making this look shiny 
+Hope it helps anyone wanting to customize progress bars 
+*/ 
+/* general */ 
+.bg-red { background-color: #FF3B3F;} 
+.bg-purple { background-color: #1b69b7;} 
+.bg-grey { background-color: lightgrey;} 
+/* replace bg-purple with bg-pgrad if you want a gradient on main bar */ 
+.bg-pgrad { 
+background: -webkit-linear-gradient(left, #0ECBF9, #2c78c5 ); /* For Safari 5.1 to 6.0 */ 
+background: -o-linear-gradient(right, #0ECBF9, #2c78c5); /* For Opera 11.1 to 12.0 */ 
+background: -moz-linear-gradient(right, #0ECBF9, #2c78c5); /* For Firefox 3.6 to 15 */ 
+background: linear-gradient(to right, #0ECBF9, #2c78c5); /* Standard syntax */ 
+} 
+/* bar */ 
+.nicebar-container { max-width: 600px;} 
+.nicebar { } 
+.progress { border-radius: 65px; height: 48px; background-color: #bdf0fd;} 
+.prog-text { 
+text-align: right; 
+font-size: 12px; 
+padding-top: 21px; 
+padding-right: 0.3rem; 
+text-shadow: 0 1px 2px rgba(0, 0, 0, 0.20); 
+} 
+.current-text { 
+text-align: right; 
+font-size: 15px; 
+padding-top: 20px; 
+padding-right: 0.3rem; 
+} 
+@media (min-width: 768px) { 
+.current-text { 
+font-size: 1.8em; 
+} 
+} 
+.smalleth { 
+width: 30px; 
+height: 30px; 
+position: relative; 
+left: calc(70% - 15px); 
+} 
+.mainbar { 
+width: 50%; 
+border-right: medium solid #1766b5; 
+} 
+.moonbar { 
+width: 25%; 
+} 
+.otherbar { 
+width: 25%; 
+} 
+</style>
+<style> 
+@import url('https://fonts.googleapis.com/css?family=Montserrat'); 
+er .preloader { 
+position: fixed; 
+top:0; 
+left:0; 
+bottom: 0; 
+right: 0; 
+background: #fff; 
+z-index: 99999; 
+} 
+.preloader .preloader-gif { 
+display: block; 
+width: 80px; 
+height: 80px; 
+position: absolute; 
+top: 50%; 
+left: 50%; 
+margin: -40px 0 0 -40px; 
+background: url('default-logo-gif.gif') no-repeat; 
+} 
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 #preloader { 
+position: fixed; 
+top:0; 
+left:0; 
+bottom: 0; 
+right: 0; 
+background: #fff; 
+z-index: 99999; 
+} 
+#preloader .preloader-gif { 
+display: block; 
+width: 80px; 
+height: 80px; 
+position: absolute; 
+top: 50%; 
+left: 50%; 
+margin: -40px 0 0 -40px; 
+background: url('preloader.gif') no-repeat; 
+} 
+#bgvid { 
+position: fixed; 
+top: 50%; 
+left: 50%; 
+min-width: 100%; 
+min-height: 100%; 
+width: auto; 
+height: auto; 
+z-index: -100; 
+transform: translateX(-50%) translateY(-50%); 
+background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat; 
+background-size: cover; 
+transition: 1s opacity; 
+} 
+.mebutton21 { 
+font-family: 'Montserrat', sans-serif; 
+color: #FFF; 
+text-align: center; 
+padding: 7px 30px 3px 30px; 
+text-decoration: none; 
+border: 2px #FFFFFF solid; 
+border-radius: 8px; 
+/* margin-top: 10px; */ 
+margin-left: 10px; 
+background: none; 
+font-size: 14px; 
+box-shadow: 0 5px 15px rgba(145, 92, 182, .4); 
+animation: shadowtok 1s linear infinite; 
+} 
+#vid { 
+position: absolute; 
+top: 50%; 
+left: 50%; 
+min-width: 100%; 
+min-height: 100%; 
+width: auto; 
+height: auto; 
+z-index: -100; 
+transform: translateX(-50%) translateY(-50%); 
+background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat; 
+background-size: cover; 
+transition: 1s opacity; 
+} 
+.stopfade { 
+opacity: .5; 
+} 
+.shine-me { 
+-webkit-animation-name:ShineAnimation;z-index: 9999; 
+-webkit-animation-duration:4s; border-radius: 3px; 
+-webkit-animation-iteration-count:infinite; 
+-webkit-animation-timing-function:cubic-bezier(.12, .89, .98, .47) 
+} 
+@-webkit-keyframes ShineAnimation { 
+from { 
+background-repeat:no-repeat; z-index: 9999; 
+background-image:-webkit-linear-gradient( top left, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.0) 25%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.5) 52%, rgba(255, 255, 255, 0.0) 57%, rgba(255, 255, 255, 0.0) 100% ); 
+background-position:-250px -250px; 
+background-size:600px 600px 
+} 
+to { 
+background-repeat:no-repeat; 
+background-position:250px 250px 
+} 
+media screen and (max-width: 500px) { 
+div { 
+width:70%; 
+} 
+} 
+@media screen and (max-device-width: 600px) { 
+body { 
+background:url(https://thenewcode.com/assets/images/polina.jpg) #000 no-repeat center center fixed; 
+} 
+.mebutton21 { 
+display:none; 
+} 
+#vid { 
+display: none; 
+} 
+} 
+</style>
+<script type="d0a6dbc59700fd1d73648dec-text/javascript"> 
+$(document).ready(function(){ 
+
+$("#softwareform").submit(function(e){ 
+	//alert('testssdfgdsfgdfgdg'); 
+
+	/* var fname= $('#fname').val(''); 
+	var lname= $('#lname').val(''); 
+	var emailaddress= $('#emailaddress').val(''); 
+	var location= $('#location').val(''); */ 
+	/* if(fname=='' and lname=='' and emailaddress=='' and 
+location==''){ 
+	var fname= $('#fname').val(''); 
+	var lname= $('#lname').val(''); 
+	var emailaddress= $('#emailaddress').val(''); 
+	var location= $('#location').val(''); 
+
+	} */ 
+
+e.preventDefault(); 
+$.ajax({ 
+type : 'POST', 
+data: $("#softwareform").serialize(), 
+url : 'http://web.enlte.com/dataform.php', 
+success : function(data){ 
+// alert(data); 
+$("#thankyouModal").modal("show"); 
+} 
+}); 
+return false; 
+}); 
+
+}); 
+</script>
+
+
+<link href="css/io.css" rel="stylesheet">
+<style> 
+.text-uppercase { 
+text-transform: uppercase !important; 
+margin-top: 144px; 
+font-size: 33px; 
+font-weight: 100; 
+margin-bottom: 30px; 
+} 
+/* Desktops and laptops ----------- */ 
+@media only screen and (min-width : 1224px) { 
+/* Styles */ .text-uppercase { 
+margin-left: 240px; 
+} 
+} 
+/* Large screens ----------- */ 
+@media only screen and (min-width : 1700px) { 
+.text-uppercase { 
+margin-left: 311px; 
+} 
+} 
+@media all and (max-width: 1400px) and (min-width: 1224px) { 
+.blockchainlearnmore { 
+margin-left: 350px; 
+} 
+} 
+.rounded-circle.img-responsive { 
+width: 140px; 
+height: 140px; 
+} 
+.asseenheading { 
+color: rgb(255, 255, 255); 
+visibility: visible; 
+animation-name: fadeInUp; 
+font-size: 30px; 
+margin-top: 20px; 
+margin-left: 0px; 
+width:100%; 
+margin-bottom: 10px; 
+} 
+#hdrTxt { 
+font-size: 26px; 
+margin: 40px; 
+margin-left: 140px; 
+} 
+.founder > h2 { 
+font-size: 15px; 
+font-weight: 700; 
+margin-top: 5px; 
+margin-bottom: 0px; 
+color: #fff; 
+} 
+.founder > p { 
+margin-bottom: 0px; 
+font-size: 11px; 
+line-height: 1.5; 
+margin-bottom: 10px; 
+color: #fff; 
+} 
+.device-mockup.iphone6_plus.portrait.white > .device, .device-mockup.iphone6_plus.white > .device { 
+background-image: 
+url(iphone_6_plus/iphone_6_plus_white_port.png); 
+} 
+.col-md-12.text-center { 
+margin-bottom: 67px; 
+} 
+a { 
+color: #101211; 
+} 
+ul a { 
+color: #fff; 
+} 
+section { 
+padding: 30px 0; 
+padding-bottom: 0px; 
+} 
+.social-contact .fa { 
+margin-right: 20px; 
+margin-left: 0px; 
+} 
+.social-contact .fa { 
+border: 2px solid #fff; 
+color: #fff; 
+font-size: 18px; 
+height: 35px; 
+margin-left: 20px; 
+padding-top: 7px; 
+text-align: center; 
+text-decoration: none; 
+width: 35px; 
+margin-bottom: 10px; 
+border-radius: 50%; 
+} 
+footer { 
+text-align: center; 
+color: rgba(255, 255, 255, .3); 
+} 
+.follow { 
+color: #fff; 
+font-size: 18px; 
+font-weight: 600; 
+font-family: 'Didact Gothic', sans-serif; 
+margin-right: 20px; 
+margin-top: 8px; 
+} 
+.disclaimer { 
+color: #fff; 
+font-size: 14px; 
+font-weight: 599; 
+margin-right: 20px; 
+margin-top: 8px; 
+text-align: center; 
+} 
+.copyright.wow.fadeInUp.text-center { 
+font-size: 16px; 
+color: #fff; 
+} 
+.col-sm-3.col-md-4 { 
+margin-top: 36px; 
+} 
+.footer-section { 
+display: none; 
+} 
+.h5, h5 { 
+font-size: 1.5rem; 
+} 
+p { 
+font-size: 16px; 
+line-height: 1.5; 
+margin-bottom: 20px; 
+} 
+.sociallogo ul li { 
+display: inline; 
+} 
+li { 
+list-style: outside none none; 
+} 
+li a:hover { 
+background-color:#0a99b3; 
+} 
+.active1 { 
+background-color:#0a99b3; 
+} 
+.text-center { 
+text-align: center; 
+} 
+.sociallogo { 
+background:none; 
+} 
+.pad50 { 
+padding: 50px 0px; 
+} 
+footer { 
+background-color: black; 
+} 
+.sociallogo ul li a img { 
+padding: 0 10px 15px;opacity:0.5; 
+width: 10%; 
+} 
+.sociallogo ul li a:hover{ background:inherit !important;} 
+.sociallogo ul li a img:hover{ background:inherit !important; opacity:1;} 
+.social_logos_img { 
+height: 40; 
+width: 40; 
+} 
+.col-sm-6 { 
+width: 50%; 
+float: left; 
+} 
+.col-md-3 { 
+width: 25%; 
+} 
+timer1 li { 
+float: left; 
+font-size: 20px; 
+color: #000; 
+width: 150px; 
+border: #000 3px solid; 
+padding: 25px; 
+background: white; 
+} 
+.container-fluid { 
+width: 100%; 
+padding-right: 15px; 
+padding-left: 15px; 
+margin-right: auto; 
+margin-left: -50px; 
+margin-top: -70px; 
+} 
+#registerfrm { 
+display: block; 
+width: 15%; 
+padding: .375rem .75rem; 
+font-size: 1rem; 
+line-height: 1.5; 
+color: #495057; 
+background-color: #fff; 
+background-image: none; 
+background-clip: padding-box; 
+border: 1px solid #ced4da; 
+border-radius: .25rem; 
+font-weight: 400; 
+margin-left: 439px; 
+transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s; 
+} 
+@media all and (max-width: 1824px) and (min-width: 1400px) { 
+.text-uppercase { 
+margin-left: 360px; 
+} 
+.headingblockchain { 
+margin-left: 290px; 
+} 
+.blockchainlearnmore { 
+margin-left: 450px; 
+} 
+.gray-wrapper { 
+background-color:#000; 
+} 
+.gray-wrapper .row { 
+width: 70%; 
+margin: 0 auto; 
+padding: 3em 0 2em 0; 
+margin-top:100px; 
+} 
+.gray-wrapper .row h3 { 
+text-align: center; 
+font-size: 2em; 
+} 
+.news-wrapper { 
+background-color: #ededed; 
+padding: 1em; 
+} 
+.news-wrapper #feature { 
+font-weight: bold; 
+font-size: 1.5em; 
+position: relative; 
+color: grey; 
+} 
+.news-wrapper ul { 
+text-align: center; 
+list-style-type: none; 
+} 
+.news-wrapper ul li { 
+padding: 2%; 
+position: relative; 
+} 
+.news-wrapper ul li #economist { 
+height: 40px; 
+} 
+.news-wrapper ul li #new-york-times { 
+height: 30px; 
+} 
+.news-wrapper ul li #techcrunch { 
+height: 30px; 
+} 
+.news-wrapper ul li #bloomberg { 
+height: 30px; 
+} 
+.news-wrapper ul li #more { 
+height: 35px; 
+} 
+.news-wrapper ul li #forbes { 
+height: 22px; 
+padding-bottom: 7px; 
+} 
+.learn-more { 
+text-align: center; 
+} 
+.learn-more p { 
+font-size: 20px; 
+} 
+.learn-more p .fa { 
+padding-left: 10px; 
+} 
+} 
+@media (min-width: 481px) and (max-width: 767px) { 
+.home_top_play h3 { 
+text-align: center !important; 
+} 
+.home_top_play { 
+text-align: center !important; 
+} 
+.live_cowndown ul{ margin-right: 0px; } 
+.live_cowndown ul li { 
+width: 36px; line-height: 30px; 
+} 
+.live_cowndown ul li span { 
+font-size: 33px;line-height: 41px; 
+} 
+.live_cowndown ul h5 { 
+display: inline-block; 
+vertical-align: top; 
+font-size: 27px; 
+margin-top: 3px; 
+} 
+.live_cowndown ul li p{ font-size: 8px; } 
+.sec_video_bar iframe { 
+margin-bottom: 20px !important; 
+width: 100% !important; 
+height: auto !important; 
+margin-left: 0px !important; 
+} 
+.home_feature_m_n ul{ margin-right: 0px; } 
+.home_feature_m_n ul li { 
+display: inline-block; 
+margin: 13px 0%; 
+text-align: center; 
+} 
+.sociallogo ul li a img { 
+padding: 0 10px 15px; 
+opacity: 0.5; 
+width: 93px; 
+} 
+#mainNav .navbar-nav > li > a, #mainNav .navbar-nav > li > a:focus{ color: #efefef !important; 
+font-size: 15px; 
+padding-left: 8px; } 
+} 
+@media (min-width: 320px) and (max-width: 480px) { 
+#mainNav .navbar-nav > li > a, #mainNav .navbar-nav > li > a:focus{ color: #efefef !important; 
+font-size: 15px; 
+padding-left: 8px; } 
+section.download{ padding: 15px 0; } 
+section.download h2 { 
+font-size: 25px; 
+} 
+section.download .badges{ margin-top: 10px; } 
+.home_video_t{ padding: 10px; } 
+.home_video_t iframe{ width: 100% !important; height: auto !important; margin-bottom: 0px; } 
+.sec_video_bar{ padding: 10px; display: block; } 
+.sec_video_bar iframe{ margin-bottom: 20px !important; width: 100% !important; height: auto !important; margin-left: 0px !important; } 
+.section2nd { padding: 27px 0px 23px 0px; background: #efefef; } 
+.section2nd .card_img{ width: 100%; } 
+.home_card_text { text-align: center;} 
+.home_card_text h3{ font-size: 27px; text-align: center; } 
+.home_card_text p { font-size: 16px;text-align: center; line-height: 21px; margin-top: 2px;} 
+.home_card_text p br{ display: none; } 
+.section3nd .heading3{ font-size: 27px; } 
+.section3nd .ptext3{ padding: 0px 15px; } 
+.section3nd .ptext4{ padding-top: 16px; } 
+.section3nd .ptext3-1{ font-size: 15px; padding: 41px 10px 0px 10px; } 
+.feature_enlte h3{ font-size: 21px; } 
+.feature_enlte .col-md-5 img{ width: 100%; } 
+.token_economy h3{ font-size: 23px; } 
+.token_economy > center{ padding-top: 10px !important; } 
+.timeline_n_home h1{ font-size: 45px; line-height: 21px; } 
+.timeline_n_home { background: #000; padding: 27px 0; text-align: center;} 
+.timeline_n_home h2 { font-size: 19px; margin-top: 15px; 
+letter-spacing: 1px; 
+line-height: 20px; 
+} 
+.timeline_n_home ul{ margin-right: 0px; margin-top: 25px; } 
+.timeline_n_home ul li { width: 49%; margin-bottom: 10px;} 
+.timeline_n_home ul li p{ font-size: 11px; } 
+.timeline_n_home ul li h4 { font-size: 17px !important; 
+font-family: 'Dosis', sans-serif; margin-top: 0px; 
+text-transform: none; 
+font-weight: normal;} 
+#team .col-sm-6{ width: 50%; } 
+.asseenheading { margin-left: 0px !important; 
+margin-top: 0px !important; 
+padding-top: 0 !important; } 
+.footer_asseen{ margin-right: 0px; } 
+.copyright.wow.fadeInUp.text-center { 
+font-size: 10px; 
+color: #fff; 
+} 
+.disclaimer{ font-size: 11px; margin-right: 0px !important; } 
+.live_cowndown ul{ margin-right: 0px; } 
+.live_cowndown ul li { 
+width: 36px; line-height: 30px; 
+} 
+.live_cowndown ul li span { 
+font-size: 33px;line-height: 41px; 
+} 
+.live_cowndown ul h5 { 
+display: inline-block; 
+vertical-align: top; 
+font-size: 27px; 
+margin-top: 3px; 
+} 
+.live_cowndown ul li p{ font-size: 8px; } 
+.home_top_play h3{ text-align: center !important; } 
+.home_top_play{ text-align: center !important; } 
+timeline-item head1 p { 
+font-size:1em; 
+} 
+.text-uppercase { 
+text-transform: uppercase !important; 
+margin-top: 0px; 
+font-size: 16px; 
+font-weight: 65; 
+margin-bottom: 0px; 
+} 
+.rounded-circle.img-responsive { 
+width: 60px; 
+height: 60px; 
+} 
+.sociallogo ul li a img { 
+color: rgb(255, 255, 255); 
+visibility: visible; 
+animation-name: fadeInUp; 
+font-size: 30px; 
+margin-top: 0px; 
+width: 40%; 
+} 
+p { 
+font-size: 12px; 
+line-height: 1.5; 
+margin-bottom: 0px; 
+} 
+.asseenheading { 
+color: rgb(255, 255, 255); 
+visibility: visible; 
+animation-name: fadeInUp; 
+font-size: 30px; 
+margin-top: 13px; 
+margin-left: 80px; 
+} 
+#hdrTxt { 
+font-size: 20px; 
+margin: 5px; 
+margin-left: 70px; 
+} 
+.form-control { 
+display: block; 
+width: 80%; 
+margin-left: 37px; 
+} 
+#registerfrm { 
+display: block; 
+width: 40%; 
+margin-left: 120px; 
+} 
+.container-page { 
+background-color: #161918; 
+color: #fff; 
+margin-top: 0px !important; 
+margin-left: -51px; 
+padding: 20px; 
+margin-right: -153px; 
+margin-bottom: -60px; 
+} 
+dl, ol, ul { 
+margin-top: 0; 
+margin-bottom: 1rem; 
+margin-right: 40px; 
+} 
+.navbar-brand { 
+display: inline-block; 
+padding-top: .3125rem; 
+padding-bottom: .3125rem; 
+margin-right: 1rem; 
+font-size: .75rem !important; 
+line-height: inherit; 
+white-space: nowrap; 
+} 
+#mainNav .navbar-toggler { 
+font-size: 15px; 
+padding: 8px 8px; 
+color: #fff; 
+margin-right: 0px; 
+} 
+header.masthead { 
+position: relative; 
+width: 100%; 
+padding-top: 95px; 
+padding-bottom: 20px; 
+color: #fff; 
+height: auto; 
+min-height: auto; 
+} 
+.home_feature_m_n ul{ margin-right: 0px; } 
+.home_feature_m_n ul li { 
+display: inline-block; 
+margin: 13px 0%; text-align: center; 
+} 
+.home_feature_m_n ul li img{ width: 90%; } 
+} 
+@media (min-width: 768px) and (max-width: 1024px) { 
+.home_top_play { 
+text-align: center !important; 
+} 
+.home_top_play h3 { 
+text-align: center !important; 
+} 
+section.download h2 { 
+font-size: 43px; 
+} 
+.sec_video_bar iframe{ width: 29%; 
+display: inline-block; 
+margin: 0 2%; } 
+.section2nd .card_img{ width: 100%; } 
+.home_card_text h3{ font-size: 29px; } 
+.home_card_text p { 
+font-size: 13px; 
+margin-top: 2px; 
+line-height: 20px; 
+} 
+.card_book_n{ padding: 8px 22px 8px 22px; font-size: 13px; } 
+.home_feature_m_n ul li { 
+display: inline-block; 
+margin: 13px 1%; 
+} 
+} 
+.container-page { 
+background-color: #343837; 
+color: #fff; 
+margin-top: 60px; 
+margin-left: -50px; 
+padding: 20px; 
+margin-right:-153px; 
+} 
+.bar-step { 
+position:absolute; 
+margin-top:-20px; 
+z-index:1; 
+font-size:12px; 
+} 
+.label-txt { 
+float: left; 
+} 
+.label-line { 
+float: right; 
+background: #fff; 
+height:50px; 
+width:1px; 
+margin-left: 5px; 
+} 
+.label-percent { 
+float: right; 
+margin-left: 5px; 
+} 
+* { 
+margin: 0; 
+padding: 0; 
+} 
+body { 
+background: #222; 
+font-family: Georgia, serif; 
+color: #fff; 
+font-size: 14px; 
+a { 
+color: #ffffcc; 
+text-decoration: none; 
+-webkit-transition: 0.5s; 
+-moz-transition: 0.5s; 
+-o-transition: 0.5s; 
+-ms-transition: 0.5s; 
+transition: 0.5s; 
+} 
+a:hover, a.selected { 
+color: #ffcc00; 
+} 
+h1, h2, h4, h5, h6 { 
+text-align: center; 
+color: #FFF; 
+text-shadow: #000 1px 1px 2px; 
+margin-bottom: 5px; 
+font-family:montserrat; 
+} 
+h1 { 
+font-size: 18px; 
+} 
+h2 { 
+font-size: 14px; 
+} 
+.sociales { 
+text-align: center; 
+margin-bottom: 20px; 
+} 
+#timeline { 
+width: 500px; 
+height: 600px; 
+overflow: hidden; 
+margin: 40px auto; 
+position: relative; 
+background: #000; 
+} 
+#dates { 
+width: 100px; 
+height: 600px; 
+overflow: hidden; 
+float: left; 
+} 
+#dates li { 
+list-style: none; 
+width: 100px; 
+height: 100px; 
+line-height: 100px; 
+font-size: 24px; 
+padding-left: 10px; 
+background: 
+url('http://www.csslab.cl/ejemplos/timelinr/latest/images/biggerdot.png') left center no-repeat; 
+} 
+#dates a { 
+line-height: 38px; 
+padding-bottom: 10px; 
+} 
+#dates .selected { 
+font-size: 38px; 
+} 
+#issues {
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A decentralized blockchain based system to 
+solve any kind of issues and problems without going through a 
+centralised government or an organisation by rewarding users to spread 
+awareness and help each other.">
+<meta name="author" content="">
+<meta name="google-site-verification" content="uZBkT2z6iGP-rEZ-rHkyaF10engh2szi61NgnSFQJ2k" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138676911-1" type="c6bac045e47eca5b8333e3fc-text/javascript"></script>
+<script type="c6bac045e47eca5b8333e3fc-text/javascript">
+
+window.dataLayer = window.dataLayer || [];
+
+function gtag(){dataLayer.push(arguments);} 
+gtag('js', new Date());
+
+
+
+gtag('config', 'UA-138676911-1');
+
+</script>
+<title>Enlte - A decentralised SocioNet</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="c6bac045e47eca5b8333e3fc-text/javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="c6bac045e47eca5b8333e3fc-text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="c6bac045e47eca5b8333e3fc-text/javascript"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous" type="c6bac045e47eca5b8333e3fc-text/javascript"></script><script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous" type="c6bac045e47eca5b8333e3fc-text/javascript"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js" type="c6bac045e47eca5b8333e3fc-text/javascript"></script>
+<link rel="icon" type="image/png" href="enlte.png" />
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<link href="css/animationn.css" rel="stylesheet">
+<script type="c6bac045e47eca5b8333e3fc-text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script type="c6bac045e47eca5b8333e3fc-text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="c6bac045e47eca5b8333e3fc-text/javascript">
+
+$(window).load(function(){
+
+$('.loader').fadeOut();
+
+});
+
+
+
+</script>
+<script type="c6bac045e47eca5b8333e3fc-text/javascript"> 
+
+var myTimeone = "America/Toronto";
+
+var countDownDate = new Date("September 7, 2018 23:59:50 GMT -07:00" ).getTime(); 
+// Update the count down every 1 second 
+
+var x = setInterval(function() { 
+// Get today's date and time 
+var now = new Date().getTime(); 
+// Find the distance between now and the target date 
+var distance = countDownDate - now; 
+// Time calculations for days, hours, minutes and seconds 
+var days = Math.floor(distance / (1000 * 60 * 60 * 24)); 
+var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 
+60 * 60)); 
+var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 
+60)); 
+var seconds = Math.floor((distance % (1000 * 60)) / 1000); 
+
+var miliseconds = Math.floor((distance % (1000 * 60 * 60 * 24 )) / 1000); 
+
+// Output the result in an element with id="demo" 
+document.getElementById("days").innerHTML = days+"\n" + " DAYS"; 
+document.getElementById("hours").innerHTML = hours + "h : "; 
+document.getElementById("minutes").innerHTML = minutes + "m : " 
+document.getElementById("seconds").innerHTML = seconds + "s"; 
+document.getElementByClassName("box-counter hours").innerHTML = hours; 
+// If the count down is over, write some text 
+if (distance < 0) { 
+clearInterval(x); 
+document.getElementByClassName("demo").innerHTML = "EXPIRED"; 
+} 
+}, 1000); 
+</script>
+<style> 
+/* 
+Credit to the bootstrap team for making an amazing framework 
+Credit to me for making this look shiny 
+Hope it helps anyone wanting to customize progress bars 
+*/ 
+/* general */ 
+.bg-red { background-color: #FF3B3F;} 
+.bg-purple { background-color: #1b69b7;} 
+.bg-grey { background-color: lightgrey;} 
+/* replace bg-purple with bg-pgrad if you want a gradient on main bar */ 
+.bg-pgrad { 
+background: -webkit-linear-gradient(left, #0ECBF9, #2c78c5 ); /* For Safari 5.1 to 6.0 */ 
+background: -o-linear-gradient(right, #0ECBF9, #2c78c5); /* For Opera 11.1 to 12.0 */ 
+background: -moz-linear-gradient(right, #0ECBF9, #2c78c5); /* For Firefox 3.6 to 15 */ 
+background: linear-gradient(to right, #0ECBF9, #2c78c5); /* Standard syntax */ 
+} 
+/* bar */ 
+.nicebar-container { max-width: 600px;} 
+.nicebar { } 
+.progress { border-radius: 65px; height: 48px; background-color: #bdf0fd;} 
+.prog-text { 
+text-align: right; 
+font-size: 12px; 
+padding-top: 21px; 
+padding-right: 0.3rem; 
+text-shadow: 0 1px 2px rgba(0, 0, 0, 0.20); 
+} 
+.current-text { 
+text-align: right; 
+font-size: 15px; 
+padding-top: 20px; 
+padding-right: 0.3rem; 
+} 
+@media (min-width: 768px) { 
+.current-text { 
+font-size: 1.8em; 
+} 
+} 
+.smalleth { 
+width: 30px; 
+height: 30px; 
+position: relative; 
+left: calc(70% - 15px); 
+} 
+.mainbar { 
+width: 50%; 
+border-right: medium solid #1766b5; 
+} 
+.moonbar { 
+width: 25%; 
+} 
+.otherbar { 
+width: 25%; 
+} 
+</style>
+<style> 
+@import url('https://fonts.googleapis.com/css?family=Montserrat'); 
+er .preloader { 
+position: fixed; 
+top:0; 
+left:0; 
+bottom: 0; 
+right: 0; 
+background: #fff; 
+z-index: 99999; 
+} 
+.preloader .preloader-gif { 
+display: block; 
+width: 80px; 
+height: 80px; 
+position: absolute; 
+top: 50%; 
+left: 50%; 
+margin: -40px 0 0 -40px; 
+background: url('default-logo-gif.gif') no-repeat; 
+} 
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 #preloader { 
+position: fixed; 
+top:0; 
+left:0; 
+bottom: 0; 
+right: 0; 
+background: #fff; 
+z-index: 99999; 
+} 
+#preloader .preloader-gif { 
+display: block; 
+width: 80px; 
+height: 80px; 
+position: absolute; 
+top: 50%; 
+left: 50%; 
+margin: -40px 0 0 -40px; 
+background: url('preloader.gif') no-repeat; 
+} 
+#bgvid { 
+position: fixed; 
+top: 50%; 
+left: 50%; 
+min-width: 100%; 
+min-height: 100%; 
+width: auto; 
+height: auto; 
+z-index: -100; 
+transform: translateX(-50%) translateY(-50%); 
+background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat; 
+background-size: cover; 
+transition: 1s opacity; 
+} 
+.mebutton21 { 
+font-family: 'Montserrat', sans-serif; 
+color: #FFF; 
+text-align: center; 
+padding: 7px 30px 3px 30px; 
+text-decoration: none; 
+border: 2px #FFFFFF solid; 
+border-radius: 8px; 
+/* margin-top: 10px; */ 
+margin-left: 10px; 
+background: none; 
+font-size: 14px; 
+box-shadow: 0 5px 15px rgba(145, 92, 182, .4); 
+animation: shadowtok 1s linear infinite; 
+} 
+#vid { 
+position: absolute; 
+top: 50%; 
+left: 50%; 
+min-width: 100%; 
+min-height: 100%; 
+width: auto; 
+height: auto; 
+z-index: -100; 
+transform: translateX(-50%) translateY(-50%); 
+background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat; 
+background-size: cover; 
+transition: 1s opacity; 
+} 
+.stopfade { 
+opacity: .5; 
+} 
+.shine-me { 
+-webkit-animation-name:ShineAnimation;z-index: 9999; 
+-webkit-animation-duration:4s; border-radius: 3px; 
+-webkit-animation-iteration-count:infinite; 
+-webkit-animation-timing-function:cubic-bezier(.12, .89, .98, .47) 
+} 
+@-webkit-keyframes ShineAnimation { 
+from { 
+background-repeat:no-repeat; z-index: 9999; 
+background-image:-webkit-linear-gradient( top left, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.0) 25%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.5) 52%, rgba(255, 255, 255, 0.0) 57%, rgba(255, 255, 255, 0.0) 100% ); 
+background-position:-250px -250px; 
+background-size:600px 600px 
+} 
+to { 
+background-repeat:no-repeat; 
+background-position:250px 250px 
+} 
+media screen and (max-width: 500px) { 
+div { 
+width:70%; 
+} 
+} 
+@media screen and (max-device-width: 600px) { 
+body { 
+background:url(https://thenewcode.com/assets/images/polina.jpg) #000 no-repeat center center fixed; 
+} 
+.mebutton21 { 
+display:none; 
+} 
+#vid { 
+display: none; 
+} 
+} 
+</style>
+<script type="c6bac045e47eca5b8333e3fc-text/javascript"> 
+$(document).ready(function(){ 
+
+$("#softwareform").submit(function(e){ 
+	//alert('testssdfgdsfgdfgdg'); 
+
+	/* var fname= $('#fname').val(''); 
+	var lname= $('#lname').val(''); 
+	var emailaddress= $('#emailaddress').val(''); 
+	var location= $('#location').val(''); */ 
+	/* if(fname=='' and lname=='' and emailaddress=='' and 
+location==''){ 
+	var fname= $('#fname').val(''); 
+	var lname= $('#lname').val(''); 
+	var emailaddress= $('#emailaddress').val(''); 
+	var location= $('#location').val(''); 
+
+	} */ 
+
+e.preventDefault(); 
+$.ajax({ 
+type : 'POST', 
+data: $("#softwareform").serialize(), 
+url : 'http://web.enlte.com/dataform.php', 
+success : function(data){ 
+// alert(data); 
+$("#thankyouModal").modal("show"); 
+} 
+}); 
+return false; 
+}); 
+
+}); 
+</script>
+
+
+<link href="css/io.css" rel="stylesheet">
+<style> 
+.text-uppercase { 
+text-transform: uppercase !important; 
+margin-top: 144px; 
+font-size: 33px; 
+font-weight: 100; 
+margin-bottom: 30px; 
+} 
+/* Desktops and laptops ----------- */ 
+@media only screen and (min-width : 1224px) { 
+/* Styles */ .text-uppercase { 
+margin-left: 240px; 
+} 
+} 
+/* Large screens ----------- */ 
+@media only screen and (min-width : 1700px) { 
+.text-uppercase { 
+margin-left: 311px; 
+} 
+} 
+@media all and (max-width: 1400px) and (min-width: 1224px) { 
+.blockchainlearnmore { 
+margin-left: 350px; 
+} 
+} 
+.rounded-circle.img-responsive { 
+width: 140px; 
+height: 140px; 
+} 
+.asseenheading { 
+color: rgb(255, 255, 255); 
+visibility: visible; 
+animation-name: fadeInUp; 
+font-size: 30px; 
+margin-top: 20px; 
+margin-left: 0px; 
+width:100%; 
+margin-bottom: 10px; 
+} 
+#hdrTxt { 
+font-size: 26px; 
+margin: 40px; 
+margin-left: 140px; 
+} 
+.founder > h2 { 
+font-size: 15px; 
+font-weight: 700; 
+margin-top: 5px; 
+margin-bottom: 0px; 
+color: #fff; 
+} 
+.founder > p { 
+margin-bottom: 0px; 
+font-size: 11px; 
+line-height: 1.5; 
+margin-bottom: 10px; 
+color: #fff; 
+} 
+.device-mockup.iphone6_plus.portrait.white > .device, .device-mockup.iphone6_plus.white > .device { 
+background-image: 
+url(iphone_6_plus/iphone_6_plus_white_port.png); 
+} 
+.col-md-12.text-center { 
+margin-bottom: 67px; 
+} 
+a { 
+color: #101211; 
+} 
+ul a { 
+color: #fff; 
+} 
+section { 
+padding: 30px 0; 
+padding-bottom: 0px; 
+} 
+.social-contact .fa { 
+margin-right: 20px; 
+margin-left: 0px; 
+} 
+.social-contact .fa { 
+border: 2px solid #fff; 
+color: #fff; 
+font-size: 18px; 
+height: 35px; 
+margin-left: 20px; 
+padding-top: 7px; 
+text-align: center; 
+text-decoration: none; 
+width: 35px; 
+margin-bottom: 10px; 
+border-radius: 50%; 
+} 
+footer { 
+text-align: center; 
+color: rgba(255, 255, 255, .3); 
+} 
+.follow { 
+color: #fff; 
+font-size: 18px; 
+font-weight: 600; 
+font-family: 'Didact Gothic', sans-serif; 
+margin-right: 20px; 
+margin-top: 8px; 
+} 
+.disclaimer { 
+color: #fff; 
+font-size: 14px; 
+font-weight: 599; 
+margin-right: 20px; 
+margin-top: 8px; 
+text-align: center; 
+} 
+.copyright.wow.fadeInUp.text-center { 
+font-size: 16px; 
+color: #fff; 
+} 
+.col-sm-3.col-md-4 { 
+margin-top: 36px; 
+} 
+.footer-section { 
+display: none; 
+} 
+.h5, h5 { 
+font-size: 1.5rem; 
+} 
+p { 
+font-size: 16px; 
+line-height: 1.5; 
+margin-bottom: 20px; 
+} 
+.sociallogo ul li { 
+display: inline; 
+} 
+li { 
+list-style: outside none none; 
+} 
+li a:hover { 
+background-color:#0a99b3; 
+} 
+.active1 { 
+background-color:#0a99b3; 
+} 
+.text-center { 
+text-align: center; 
+} 
+.sociallogo { 
+background:none; 
+} 
+.pad50 { 
+padding: 50px 0px; 
+} 
+footer { 
+background-color: black; 
+} 
+.sociallogo ul li a img { 
+padding: 0 10px 15px;opacity:0.5; 
+width: 10%; 
+} 
+.sociallogo ul li a:hover{ background:inherit !important;} 
+.sociallogo ul li a img:hover{ background:inherit !important; opacity:1;} 
+.social_logos_img { 
+height: 40; 
+width: 40; 
+} 
+.col-sm-6 { 
+width: 50%; 
+float: left; 
+} 
+.col-md-3 { 
+width: 25%; 
+} 
+timer1 li { 
+float: left; 
+font-size: 20px; 
+color: #000; 
+width: 150px; 
+border: #000 3px solid; 
+padding: 25px; 
+background: white; 
+} 
+.container-fluid { 
+width: 100%; 
+padding-right: 15px; 
+padding-left: 15px; 
+margin-right: auto; 
+margin-left: -50px; 
+margin-top: -70px; 
+} 
+#registerfrm { 
+display: block; 
+width: 15%; 
+padding: .375rem .75rem; 
+font-size: 1rem; 
+line-height: 1.5; 
+color: #495057; 
+background-color: #fff; 
+background-image: none; 
+background-clip: padding-box; 
+border: 1px solid #ced4da; 
+border-radius: .25rem; 
+font-weight: 400; 
+margin-left: 439px; 
+transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s; 
+} 
+@media all and (max-width: 1824px) and (min-width: 1400px) { 
+.text-uppercase { 
+margin-left: 360px; 
+} 
+.headingblockchain { 
+margin-left: 290px; 
+} 
+.blockchainlearnmore { 
+margin-left: 450px; 
+} 
+.gray-wrapper { 
+background-color:#000; 
+} 
+.gray-wrapper .row { 
+width: 70%; 
+margin: 0 auto; 
+padding: 3em 0 2em 0; 
+margin-top:100px; 
+} 
+.gray-wrapper .row h3 { 
+text-align: center; 
+font-size: 2em; 
+} 
+.news-wrapper { 
+background-color: #ededed; 
+padding: 1em; 
+} 
+.news-wrapper #feature { 
+font-weight: bold; 
+font-size: 1.5em; 
+position: relative; 
+color: grey; 
+} 
+.news-wrapper ul { 
+text-align: center; 
+list-style-type: none; 
+} 
+.news-wrapper ul li { 
+padding: 2%; 
+position: relative; 
+} 
+.news-wrapper ul li #economist { 
+height: 40px; 
+} 
+.news-wrapper ul li #new-york-times { 
+height: 30px; 
+} 
+.news-wrapper ul li #techcrunch { 
+height: 30px; 
+} 
+.news-wrapper ul li #bloomberg { 
+height: 30px; 
+} 
+.news-wrapper ul li #more { 
+height: 35px; 
+} 
+.news-wrapper ul li #forbes { 
+height: 22px; 
+padding-bottom: 7px; 
+} 
+.learn-more { 
+text-align: center; 
+} 
+.learn-more p { 
+font-size: 20px; 
+} 
+.learn-more p .fa { 
+padding-left: 10px; 
+} 
+} 
+@media (min-width: 481px) and (max-width: 767px) { 
+.home_top_play h3 { 
+text-align: center !important; 
+} 
+.home_top_play { 
+text-align: center !important; 
+} 
+.live_cowndown ul{ margin-right: 0px; } 
+.live_cowndown ul li { 
+width: 36px; line-height: 30px; 
+} 
+.live_cowndown ul li span { 
+font-size: 33px;line-height: 41px; 
+} 
+.live_cowndown ul h5 { 
+display: inline-block; 
+vertical-align: top; 
+font-size: 27px; 
+margin-top: 3px; 
+} 
+.live_cowndown ul li p{ font-size: 8px; } 
+.sec_video_bar iframe { 
+margin-bottom: 20px !important; 
+width: 100% !important; 
+height: auto !important; 
+margin-left: 0px !important; 
+} 
+.home_feature_m_n ul{ margin-right: 0px; } 
+.home_feature_m_n ul li { 
+display: inline-block; 
+margin: 13px 0%; 
+text-align: center; 
+} 
+.sociallogo ul li a img { 
+padding: 0 10px 15px; 
+opacity: 0.5; 
+width: 93px; 
+} 
+#mainNav .navbar-nav > li > a, #mainNav .navbar-nav > li > a:focus{ color: #efefef !important; 
+font-size: 15px; 
+padding-left: 8px; } 
+} 
+@media (min-width: 320px) and (max-width: 480px) { 
+#mainNav .navbar-nav > li > a, #mainNav .navbar-nav > li > a:focus{ color: #efefef !important; 
+font-size: 15px; 
+padding-left: 8px; } 
+section.download{ padding: 15px 0; } 
+section.download h2 { 
+font-size: 25px; 
+} 
+section.download .badges{ margin-top: 10px; } 
+.home_video_t{ padding: 10px; } 
+.home_video_t iframe{ width: 100% !important; height: auto !important; margin-bottom: 0px; } 
+.sec_video_bar{ padding: 10px; display: block; } 
+.sec_video_bar iframe{ margin-bottom: 20px !important; width: 100% !important; height: auto !important; margin-left: 0px !important; } 
+.section2nd { padding: 27px 0px 23px 0px; background: #efefef; } 
+.section2nd .card_img{ width: 100%; } 
+.home_card_text { text-align: center;} 
+.home_card_text h3{ font-size: 27px; text-align: center; } 
+.home_card_text p { font-size: 16px;text-align: center; line-height: 21px; margin-top: 2px;} 
+.home_card_text p br{ display: none; } 
+.section3nd .heading3{ font-size: 27px; } 
+.section3nd .ptext3{ padding: 0px 15px; } 
+.section3nd .ptext4{ padding-top: 16px; } 
+.section3nd .ptext3-1{ font-size: 15px; padding: 41px 10px 0px 10px; } 
+.feature_enlte h3{ font-size: 21px; } 
+.feature_enlte .col-md-5 img{ width: 100%; } 
+.token_economy h3{ font-size: 23px; } 
+.token_economy > center{ padding-top: 10px !important; } 
+.timeline_n_home h1{ font-size: 45px; line-height: 21px; } 
+.timeline_n_home { background: #000; padding: 27px 0; text-align: center;} 
+.timeline_n_home h2 { font-size: 19px; margin-top: 15px; 
+letter-spacing: 1px; 
+line-height: 20px; 
+} 
+.timeline_n_home ul{ margin-right: 0px; margin-top: 25px; } 
+.timeline_n_home ul li { width: 49%; margin-bottom: 10px;} 
+.timeline_n_home ul li p{ font-size: 11px; } 
+.timeline_n_home ul li h4 { font-size: 17px !important; 
+font-family: 'Dosis', sans-serif; margin-top: 0px; 
+text-transform: none; 
+font-weight: normal;} 
+#team .col-sm-6{ width: 50%; } 
+.asseenheading { margin-left: 0px !important; 
+margin-top: 0px !important; 
+padding-top: 0 !important; } 
+.footer_asseen{ margin-right: 0px; } 
+.copyright.wow.fadeInUp.text-center { 
+font-size: 10px; 
+color: #fff; 
+} 
+.disclaimer{ font-size: 11px; margin-right: 0px !important; } 
+.live_cowndown ul{ margin-right: 0px; } 
+.live_cowndown ul li { 
+width: 36px; line-height: 30px; 
+} 
+.live_cowndown ul li span { 
+font-size: 33px;line-height: 41px; 
+} 
+.live_cowndown ul h5 { 
+display: inline-block; 
+vertical-align: top; 
+font-size: 27px; 
+margin-top: 3px; 
+} 
+.live_cowndown ul li p{ font-size: 8px; } 
+.home_top_play h3{ text-align: center !important; } 
+.home_top_play{ text-align: center !important; } 
+timeline-item head1 p { 
+font-size:1em; 
+} 
+.text-uppercase { 
+text-transform: uppercase !important; 
+margin-top: 0px; 
+font-size: 16px; 
+font-weight: 65; 
+margin-bottom: 0px; 
+} 
+.rounded-circle.img-responsive { 
+width: 60px; 
+height: 60px; 
+} 
+.sociallogo ul li a img { 
+color: rgb(255, 255, 255); 
+visibility: visible; 
+animation-name: fadeInUp; 
+font-size: 30px; 
+margin-top: 0px; 
+width: 40%; 
+} 
+p { 
+font-size: 12px; 
+line-height: 1.5; 
+margin-bottom: 0px; 
+} 
+.asseenheading { 
+color: rgb(255, 255, 255); 
+visibility: visible; 
+animation-name: fadeInUp; 
+font-size: 30px; 
+margin-top: 13px; 
+margin-left: 80px; 
+} 
+#hdrTxt { 
+font-size: 20px; 
+margin: 5px; 
+margin-left: 70px; 
+} 
+.form-control { 
+display: block; 
+width: 80%; 
+margin-left: 37px; 
+} 
+#registerfrm { 
+display: block; 
+width: 40%; 
+margin-left: 120px; 
+} 
+.container-page { 
+background-color: #161918; 
+color: #fff; 
+margin-top: 0px !important; 
+margin-left: -51px; 
+padding: 20px; 
+margin-right: -153px; 
+margin-bottom: -60px; 
+} 
+dl, ol, ul { 
+margin-top: 0; 
+margin-bottom: 1rem; 
+margin-right: 40px; 
+} 
+.navbar-brand { 
+display: inline-block; 
+padding-top: .3125rem; 
+padding-bottom: .3125rem; 
+margin-right: 1rem; 
+font-size: .75rem !important; 
+line-height: inherit; 
+white-space: nowrap; 
+} 
+#mainNav .navbar-toggler { 
+font-size: 15px; 
+padding: 8px 8px; 
+color: #fff; 
+margin-right: 0px; 
+} 
+header.masthead { 
+position: relative; 
+width: 100%; 
+padding-top: 95px; 
+padding-bottom: 20px; 
+color: #fff; 
+height: auto; 
+min-height: auto; 
+} 
+.home_feature_m_n ul{ margin-right: 0px; } 
+.home_feature_m_n ul li { 
+display: inline-block; 
+margin: 13px 0%; text-align: center; 
+} 
+.home_feature_m_n ul li img{ width: 90%; } 
+} 
+@media (min-width: 768px) and (max-width: 1024px) { 
+.home_top_play { 
+text-align: center !important; 
+} 
+.home_top_play h3 { 
+text-align: center !important; 
+} 
+section.download h2 { 
+font-size: 43px; 
+} 
+.sec_video_bar iframe{ width: 29%; 
+display: inline-block; 
+margin: 0 2%; } 
+.section2nd .card_img{ width: 100%; } 
+.home_card_text h3{ font-size: 29px; } 
+.home_card_text p { 
+font-size: 13px; 
+margin-top: 2px; 
+line-height: 20px; 
+} 
+.card_book_n{ padding: 8px 22px 8px 22px; font-size: 13px; } 
+.home_feature_m_n ul li { 
+display: inline-block; 
+margin: 13px 1%; 
+} 
+} 
+.container-page { 
+background-color: #343837; 
+color: #fff; 
+margin-top: 60px; 
+margin-left: -50px; 
+padding: 20px; 
+margin-right:-153px; 
+} 
+.bar-step { 
+position:absolute; 
+margin-top:-20px; 
+z-index:1; 
+font-size:12px; 
+} 
+.label-txt { 
+float: left; 
+} 
+.label-line { 
+float: right; 
+background: #fff; 
+height:50px; 
+width:1px; 
+margin-left: 5px; 
+} 
+.label-percent { 
+float: right; 
+margin-left: 5px; 
+} 
+* { 
+margin: 0; 
+padding: 0; 
+} 
+body { 
+background: #222; 
+font-family: Georgia, serif; 
+color: #fff; 
+font-size: 14px; 
+a { 
+color: #ffffcc; 
+text-decoration: none; 
+-webkit-transition: 0.5s; 
+-moz-transition: 0.5s; 
+-o-transition: 0.5s; 
+-ms-transition: 0.5s; 
+transition: 0.5s; 
+} 
+a:hover, a.selected { 
+color: #ffcc00; 
+} 
+h1, h2, h4, h5, h6 { 
+text-align: center; 
+color: #FFF; 
+text-shadow: #000 1px 1px 2px; 
+margin-bottom: 5px; 
+font-family:montserrat; 
+} 
+h1 { 
+font-size: 18px; 
+} 
+h2 { 
+font-size: 14px; 
+} 
+.sociales { 
+text-align: center; 
+margin-bottom: 20px; 
+} 
+#timeline { 
+width: 500px; 
+height: 600px; 
+overflow: hidden; 
+margin: 40px auto; 
+position: relative; 
+background: #000; 
+} 
+#dates { 
+width: 100px; 
+height: 600px; 
+overflow: hidden; 
+float: left; 
+} 
+#dates li { 
+list-style: none; 
+width: 100px; 
+height: 100px;
+
+line-height: 100px; 
+font-size: 24px; 
+padding-left: 10px; 
+background: 
+url('http://www.csslab.cl/ejemplos/timelinr/latest/images/biggerdot.png') left center no-repeat; 
+} 
+#dates a { 
+line-height: 38px; 
+padding-bottom: 10px; 
+} 
+#dates .selected { 
+font-size: 38px; 
+} 
+#issues { 
+} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="A decentralized blockchain based system to 
+solve any kind of issues and problems without going through a 
+centralised government or an organisation by rewarding users to spread 
+awareness and help each other.">
+<meta name="author" content="">
+<meta name="google-site-verification" content="uZBkT2z6iGP-rEZ-rHkyaF10engh2szi61NgnSFQJ2k" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-138676911-1" type="d0a6dbc59700fd1d73648dec-text/javascript"></script>
+<script type="d0a6dbc59700fd1d73648dec-text/javascript"> 
+window.dataLayer = window.dataLayer || []; 
+function gtag(){dataLayer.push(arguments);} 
+gtag('js', new Date()); 
+
+gtag('config', 'UA-138676911-1'); 
+</script>
+<title>Enlte - A decentralised SocioNet</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js" type="d0a6dbc59700fd1d73648dec-text/javascript"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="d0a6dbc59700fd1d73648dec-text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="d0a6dbc59700fd1d73648dec-text/javascript"></script>
+<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous" type="d0a6dbc59700fd1d73648dec-text/javascript"></script><script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous" type="d0a6dbc59700fd1d73648dec-text/javascript"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css" integrity="sha384-v2Tw72dyUXeU3y4aM2Y0tBJQkGfplr39mxZqlTBDUZAb9BGoC40+rdFCG0m10lXk" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/fontawesome.css" integrity="sha384-q3jl8XQu1OpdLgGFvNRnPdj5VIlCvgsDQTQB6owSOHWlAurxul7f+JpUOVdAiJ5P" crossorigin="anonymous">
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js" type="d0a6dbc59700fd1d73648dec-text/javascript"></script>
+<link rel="icon" type="image/png" href="enlte.png" />
+<link href='https://fonts.googleapis.com/css?family=Roboto:400,100' rel='stylesheet' type='text/css'>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<link href="css/animationn.css" rel="stylesheet">
+<script type="d0a6dbc59700fd1d73648dec-text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="vendor/simple-line-icons/css/simple-line-icons.css">
+<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script type="d0a6dbc59700fd1d73648dec-text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="d0a6dbc59700fd1d73648dec-text/javascript"> 
+$(window).load(function(){ 
+$('.loader').fadeOut(); 
+}); 
+
+</script>
+<script type="d0a6dbc59700fd1d73648dec-text/javascript"> 
+var myTimeone = "America/Toronto"; 
+var countDownDate = new Date("September 7, 2018 23:59:50 GMT -07:00" ).getTime(); 
+// Update the count down every 1 second 
+var x = setInterval(function() { 
+// Get today's date and time 
+var now = new Date().getTime(); 
+// Find the distance between now and the target date 
+var distance = countDownDate - now; 
+// Time calculations for days, hours, minutes and seconds 
+var days = Math.floor(distance / (1000 * 60 * 60 * 24)); 
+var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 
+60 * 60)); 
+var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 
+60)); 
+var seconds = Math.floor((distance % (1000 * 60)) / 1000); 
+
+var miliseconds = Math.floor((distance % (1000 * 60 * 60 * 24 )) / 1000); 
+
+// Output the result in an element with id="demo" 
+document.getElementById("days").innerHTML = days+"\n" + " DAYS"; 
+document.getElementById("hours").innerHTML = hours + "h : "; 
+document.getElementById("minutes").innerHTML = minutes + "m : " 
+document.getElementById("seconds").innerHTML = seconds + "s"; 
+document.getElementByClassName("box-counter hours").innerHTML = hours; 
+// If the count down is over, write some text 
+if (distance < 0) { 
+clearInterval(x); 
+document.getElementByClassName("demo").innerHTML = "EXPIRED"; 
+} 
+}, 1000); 
+</script>
+<style> 
+/* 
+Credit to the bootstrap team for making an amazing framework 
+Credit to me for making this look shiny 
+Hope it helps anyone wanting to customize progress bars 
+*/ 
+/* general */ 
+.bg-red { background-color: #FF3B3F;} 
+.bg-purple { background-color: #1b69b7;} 
+.bg-grey { background-color: lightgrey;} 
+/* replace bg-purple with bg-pgrad if you want a gradient on main bar */ 
+.bg-pgrad { 
+background: -webkit-linear-gradient(left, #0ECBF9, #2c78c5 ); /* For Safari 5.1 to 6.0 */ 
+background: -o-linear-gradient(right, #0ECBF9, #2c78c5); /* For Opera 11.1 to 12.0 */ 
+background: -moz-linear-gradient(right, #0ECBF9, #2c78c5); /* For Firefox 3.6 to 15 */ 
+background: linear-gradient(to right, #0ECBF9, #2c78c5); /* Standard syntax */ 
+} 
+/* bar */ 
+.nicebar-container { max-width: 600px;} 
+.nicebar { } 
+.progress { border-radius: 65px; height: 48px; background-color: #bdf0fd;} 
+.prog-text { 
+text-align: right; 
+font-size: 12px; 
+padding-top: 21px; 
+padding-right: 0.3rem; 
+text-shadow: 0 1px 2px rgba(0, 0, 0, 0.20); 
+} 
+.current-text { 
+text-align: right; 
+font-size: 15px; 
+padding-top: 20px; 
+padding-right: 0.3rem; 
+} 
+@media (min-width: 768px) { 
+.current-text { 
+font-size: 1.8em; 
+} 
+} 
+.smalleth { 
+width: 30px; 
+height: 30px; 
+position: relative; 
+left: calc(70% - 15px); 
+} 
+.mainbar { 
+width: 50%; 
+border-right: medium solid #1766b5; 
+} 
+.moonbar { 
+width: 25%; 
+} 
+.otherbar { 
+width: 25%; 
+} 
+</style>
+<style> 
+@import url('https://fonts.googleapis.com/css?family=Montserrat'); 
+er .preloader { 
+position: fixed; 
+top:0; 
+left:0; 
+bottom: 0; 
+right: 0; 
+background: #fff; 
+z-index: 99999; 
+} 
+.preloader .preloader-gif { 
+display: block; 
+width: 80px; 
+height: 80px; 
+position: absolute; 
+top: 50%; 
+left: 50%; 
+margin: -40px 0 0 -40px; 
+background: url('default-logo-gif.gif') no-repeat;
+
+} 
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 #preloader { 
+position: fixed; 
+top:0; 
+left:0; 
+bottom: 0; 
+right: 0; 
+background: #fff; 
+z-index: 99999; 
+} 
+#preloader .preloader-gif { 
+display: block; 
+width: 80px; 
+height: 80px; 
+position: absolute; 
+top: 50%; 
+left: 50%; 
+margin: -40px 0 0 -40px; 
+background: url('preloader.gif') no-repeat; 
+} 
+#bgvid { 
+position: fixed; 
+top: 50%; 
+left: 50%; 
+min-width: 100%; 
+min-height: 100%; 
+width: auto; 
+height: auto; 
+z-index: -100; 
+transform: translateX(-50%) translateY(-50%); 
+background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat; 
+background-size: cover; 
+transition: 1s opacity; 
+} 
+.mebutton21 { 
+font-family: 'Montserrat', sans-serif; 
+color: #FFF; 
+text-align: center; 
+padding: 7px 30px 3px 30px; 
+text-decoration: none; 
+border: 2px #FFFFFF solid; 
+border-radius: 8px; 
+/* margin-top: 10px; */ 
+margin-left: 10px; 
+background: none; 
+font-size: 14px; 
+box-shadow: 0 5px 15px rgba(145, 92, 182, .4); 
+animation: shadowtok 1s linear infinite; 
+} 
+#vid { 
+position: absolute; 
+top: 50%; 
+left: 50%; 
+min-width: 100%; 
+min-height: 100%; 
+width: auto; 
+height: auto; 
+z-index: -100; 
+transform: translateX(-50%) translateY(-50%); 
+background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat; 
+background-size: cover; 
+transition: 1s opacity; 
+} 
+.stopfade { 
+opacity: .5; 
+} 
+.shine-me { 
+-webkit-animation-name:ShineAnimation;z-index: 9999; 
+-webkit-animation-duration:4s; border-radius: 3px; 
+-webkit-animation-iteration-count:infinite; 
+-webkit-animation-timing-function:cubic-bezier(.12, .89, .98, .47) 
+} 
+@-webkit-keyframes ShineAnimation { 
+from { 
+background-repeat:no-repeat; z-index: 9999; 
+background-image:-webkit-linear-gradient( top left, rgba(255, 255, 255, 0.0) 0%, rgba(255, 255, 255, 0.0) 25%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0.8) 50%, rgba(255, 255, 255, 0.5) 52%, rgba(255, 255, 255, 0.0) 57%, rgba(255, 255, 255, 0.0) 100% ); 
+background-position:-250px -250px; 
+background-size:600px 600px 
+} 
+to { 
+background-repeat:no-repeat; 
+background-position:250px 250px 
+} 
+media screen and (max-width: 500px) { 
+div { 
+width:70%; 
+} 
+} 
+@media screen and (max-device-width: 600px) { 
+body { 
+background:url(https://thenewcode.com/assets/images/polina.jpg) #000 no-repeat center center fixed; 
+} 
+.mebutton21 { 
+display:none; 
+} 
+#vid { 
+display: none; 
+} 
+} 
+</style>
+<script type="d0a6dbc59700fd1d73648dec-text/javascript"> 
+$(document).ready(function(){ 
+ 
+$("#softwareform").submit(function(e){ 
+//alert('testssdfgdsfgdfgdg'); 
+ 
+/* var fname= $('#fname').val(''); 
+var lname= $('#lname').val(''); 
+var emailaddress= $('#emailaddress').val(''); 
+var location= $('#location').val(''); */ 
+/* if(fname=='' and lname=='' and emailaddress=='' and 
+location==''){ 
+var fname= $('#fname').val(''); 
+var lname= $('#lname').val(''); 
+var emailaddress= $('#emailaddress').val(''); 
+var location= $('#location').val(''); 
+ 
+} */ 
+ 
+e.preventDefault(); 
+$.ajax({ 
+type : 'POST', 
+data: $("#softwareform").serialize(), 
+url : 'http://web.enlte.com/dataform.php', 
+success : function(data){ 
+// alert(data); 
+$("#thankyouModal").modal("show"); 
+} 
+}); 
+return false; 
+}); 
+
+}); 
+</script>
+
+
+<link href="css/io.css" rel="stylesheet">
+<style> 
+.text-uppercase { 
+text-transform: uppercase !important; 
+margin-top: 144px; 
+font-size: 33px; 
+font-weight: 100; 
+margin-bottom: 30px; 
+} 
+/* Desktops and laptops ----------- */ 
+@media only screen and (min-width : 1224px) { 
+/* Styles */ .text-uppercase { 
+margin-left: 240px; 
+} 
+} 
+/* Large screens ----------- */ 
+@media only screen and (min-width : 1700px) { 
+.text-uppercase { 
+margin-left: 311px; 
+} 
+} 
+@media all and (max-width: 1400px) and (min-width: 1224px) { 
+.blockchainlearnmore { 
+margin-left: 350px; 
+} 
+} 
+.rounded-circle.img-responsive { 
+width: 140px; 
+height: 140px; 
+} 
+.asseenheading { 
+color: rgb(255, 255, 255); 
+visibility: visible; 
+animation-name: fadeInUp; 
+font-size: 30px; 
+margin-top: 20px; 
+margin-left: 0px; 
+width:100%; 
+margin-bottom: 10px; 
+} 
+#hdrTxt { 
+font-size: 26px; 
+margin: 40px; 
+margin-left: 140px; 
+} 
+.founder > h2 { 
+font-size: 15px; 
+font-weight: 700; 
+margin-top: 5px; 
+margin-bottom: 0px; 
+color: #fff; 
+} 
+.founder > p { 
+margin-bottom: 0px; 
+font-size: 11px; 
+line-height: 1.5; 
+margin-bottom: 10px; 
+color: #fff; 
+} 
+.device-mockup.iphone6_plus.portrait.white > .device, .device-mockup.iphone6_plus.white > .device { 
+background-image: 
+url(iphone_6_plus/iphone_6_plus_white_port.png); 
+} 
+.col-md-12.text-center { 
+margin-bottom: 67px; 
+} 
+a { 
+color: #101211; 
+} 
+ul a { 
+color: #fff; 
+} 
+section { 
+padding: 30px 0; 
+padding-bottom: 0px; 
+} 
+.social-contact .fa { 
+margin-right: 20px; 
+margin-left: 0px; 
+} 
+.social-contact .fa { 
+border: 2px solid #fff; 
+color: #fff; 
+font-size: 18px; 
+height: 35px; 
+margin-left: 20px; 
+padding-top: 7px; 
+text-align: center; 
+text-decoration: none; 
+width: 35px; 
+margin-bottom: 10px; 
+border-radius: 50%; 
+} 
+footer { 
+text-align: center; 
+color: rgba(255, 255, 255, .3); 
+} 
+.follow { 
+color: #fff; 
+font-size: 18px; 
+font-weight: 600; 
+font-family: 'Didact Gothic', sans-serif; 
+margin-right: 20px; 
+margin-top: 8px; 
+} 
+.disclaimer { 
+color: #fff; 
+font-size: 14px; 
+font-weight: 599; 
+margin-right: 20px; 
+margin-top: 8px; 
+text-align: center; 
+} 
+.copyright.wow.fadeInUp.text-center { 
+font-size: 16px; 
+color: #fff; 
+} 
+.col-sm-3.col-md-4 { 
+margin-top: 36px; 
+} 
+.footer-section { 
+display: none; 
+} 
+.h5, h5 { 
+font-size: 1.5rem; 
+} 
+p { 
+font-size: 16px; 
+line-height: 1.5; 
+margin-bottom: 20px; 
+} 
+.sociallogo ul li { 
+display: inline; 
+} 
+li { 
+list-style: outside none none; 
+} 
+li a:hover { 
+background-color:#0a99b3; 
+} 
+.active1 { 
+background-color:#0a99b3; 
+} 
+.text-center { 
+text-align: center; 
+} 
+.sociallogo { 
+background:none; 
+} 
+.pad50 { 
+padding: 50px 0px; 
+} 
+footer { 
+background-color: black; 
+} 
+.sociallogo ul li a img { 
+padding: 0 10px 15px;opacity:0.5; 
+width: 10%; 
+} 
+.sociallogo ul li a:hover{ background:inherit !important;} 
+.sociallogo ul li a img:hover{ background:inherit !important; opacity:1;} 
+.social_logos_img { 
+height: 40; 
+width: 40; 
+} 
+.col-sm-6 { 
+width: 50%; 
+float: left; 
+} 
+.col-md-3 { 
+width: 25%; 
+} 
+timer1 li { 
+float: left; 
+font-size: 20px; 
+color: #000; 
+width: 150px; 
+border: #000 3px solid; 
+padding: 25px; 
+background: white; 
+} 
+.container-fluid { 
+width: 100%; 
+padding-right: 15px; 
+padding-left: 15px; 
+margin-right: auto; 
+margin-left: -50px; 
+margin-top: -70px; 
+} 
+#registerfrm { 
+display: block; 
+width: 15%; 
+padding: .375rem .75rem; 
+font-size: 1rem; 
+line-height: 1.5; 
+color: #495057; 
+background-color: #fff; 
+background-image: none; 
+background-clip: padding-box; 
+border: 1px solid #ced4da; 
+border-radius: .25rem; 
+font-weight: 400; 
+margin-left: 439px; 
+transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s; 
+} 
+@media all and (max-width: 1824px) and (min-width: 1400px) { 
+.text-uppercase { 
+margin-left: 360px; 
+} 
+.headingblockchain { 
+margin-left: 290px; 
+} 
+.blockchainlearnmore { 
+margin-left: 450px; 
+} 
+.gray-wrapper { 
+background-color:#000; 
+} 
+.gray-wrapper .row { 
+width: 70%; 
+margin: 0 auto; 
+padding: 3em 0 2em 0; 
+margin-top:100px; 
+} 
+.gray-wrapper .row h3 { 
+text-align: center; 
+font-size: 2em; 
+} 
+.news-wrapper { 
+background-color: #ededed; 
+padding: 1em; 
+} 
+.news-wrapper #feature { 
+font-weight: bold; 
+font-size: 1.5em; 
+position: relative; 
+color: grey; 
+} 
+.news-wrapper ul { 
+text-align: center; 
+list-style-type: none; 
+} 
+.news-wrapper ul li { 
+padding: 2%; 
+position: relative; 
+} 
+.news-wrapper ul li #economist { 
+height: 40px; 
+} 
+.news-wrapper ul li #new-york-times { 
+height: 30px; 
+} 
+.news-wrapper ul li #techcrunch { 
+height: 30px; 
+} 
+.news-wrapper ul li #bloomberg { 
+height: 30px; 
+} 
+.news-wrapper ul li #more { 
+height: 35px; 
+} 
+.news-wrapper ul li #forbes { 
+height: 22px; 
+padding-bottom: 7px; 
+} 
+.learn-more { 
+text-align: center; 
+} 
+.learn-more p { 
+font-size: 20px; 
+} 
+.learn-more p .fa { 
+padding-left: 10px; 
+} 
+} 
+@media (min-width: 481px) and (max-width: 767px) { 
+.home_top_play h3 { 
+text-align: center !important; 
+} 
+.home_top_play { 
+text-align: center !important; 
+} 
+.live_cowndown ul{ margin-right: 0px; } 
+.live_cowndown ul li { 
+width: 36px; line-height: 30px; 
+} 
+.live_cowndown ul li span { 
+font-size: 33px;line-height: 41px; 
+} 
+.live_cowndown ul h5 { 
+display: inline-block; 
+vertical-align: top; 
+font-size: 27px; 
+margin-top: 3px; 
+} 
+.live_cowndown ul li p{ font-size: 8px; } 
+.sec_video_bar iframe { 
+margin-bottom: 20px !important; 
+width: 100% !important; 
+height: auto !important; 
+margin-left: 0px !important; 
+} 
+.home_feature_m_n ul{ margin-right: 0px; } 
+.home_feature_m_n ul li { 
+display: inline-block; 
+margin: 13px 0%; 
+text-align: center; 
+} 
+.sociallogo ul li a img { 
+padding: 0 10px 15px; 
+opacity: 0.5; 
+width: 93px; 
+} 
+#mainNav .navbar-nav > li > a, #mainNav .navbar-nav > li > a:focus{ color: #efefef !important; 
+font-size: 15px; 
+padding-left: 8px; } 
+} 
+@media (min-width: 320px) and (max-width: 480px) { 
+#mainNav .navbar-nav > li > a, #mainNav .navbar-nav > li > a:focus{ color: #efefef !important; 
+font-size: 15px; 
+padding-left: 8px; } 
+section.download{ padding: 15px 0; } 
+section.download h2 { 
+font-size: 25px; 
+} 
+section.download .badges{ margin-top: 10px; } 
+.home_video_t{ padding: 10px; } 
+.home_video_t iframe{ width: 100% !important; height: auto !important; margin-bottom: 0px; } 
+.sec_video_bar{ padding: 10px; display: block; } 
+.sec_video_bar iframe{ margin-bottom: 20px !important; width: 100% !important; height: auto !important; margin-left: 0px !important; } 
+.section2nd { padding: 27px 0px 23px 0px; background: #efefef; } 
+.section2nd .card_img{ width: 100%; } 
+.home_card_text { text-align: center;} 
+.home_card_text h3{ font-size: 27px; text-align: center; } 
+.home_card_text p { font-size: 16px;text-align: center; line-height: 21px; margin-top: 2px;} 
+.home_card_text p br{ display: none; } 
+.section3nd .heading3{ font-size: 27px; } 
+.section3nd .ptext3{ padding: 0px 15px; } 
+.section3nd .ptext4{ padding-top: 16px; } 
+.section3nd .ptext3-1{ font-size: 15px; padding: 41px 10px 0px 10px; } 
+.feature_enlte h3{ font-size: 21px; } 
+.feature_enlte .col-md-5 img{ width: 100%; } 
+.token_economy h3{ font-size: 23px; } 
+.token_economy > center{ padding-top: 10px !important; } 
+.timeline_n_home h1{ font-size: 45px; line-height: 21px; } 
+.timeline_n_home { background: #000; padding: 27px 0; text-align: center;} 
+.timeline_n_home h2 { font-size: 19px; margin-top: 15px; 
+letter-spacing: 1px; 
+line-height: 20px; 
+} 
+.timeline_n_home ul{ margin-right: 0px; margin-top: 25px; } 
+.timeline_n_home ul li { width: 49%; margin-bottom: 10px;} 
+.timeline_n_home ul li p{ font-size: 11px; } 
+.timeline_n_home ul li h4 { font-size: 17px !important; 
+font-family: 'Dosis', sans-serif; margin-top: 0px; 
+text-transform: none; 
+font-weight: normal;} 
+#team .col-sm-6{ width: 50%; } 
+.asseenheading { margin-left: 0px !important; 
+margin-top: 0px !important; 
+padding-top: 0 !important; } 
+.footer_asseen{ margin-right: 0px; } 
+.copyright.wow.fadeInUp.text-center { 
+font-size: 10px; 
+color: #fff; 
+} 
+.disclaimer{ font-size: 11px; margin-right: 0px !important; } 
+.live_cowndown ul{ margin-right: 0px; } 
+.live_cowndown ul li { 
+width: 36px; line-height: 30px; 
+} 
+.live_cowndown ul li span { 
+font-size: 33px;line-height: 41px; 
+} 
+.live_cowndown ul h5 { 
+display: inline-block; 
+vertical-align: top; 
+font-size: 27px; 
+margin-top: 3px; 
+} 
+.live_cowndown ul li p{ font-size: 8px; } 
+.home_top_play h3{ text-align: center !important; } 
+.home_top_play{ text-align: center !important; } 
+timeline-item head1 p { 
+font-size:1em; 
+} 
+.text-uppercase { 
+text-transform: uppercase !important; 
+margin-top: 0px; 
+font-size: 16px; 
+font-weight: 65; 
+margin-bottom: 0px; 
+} 
+.rounded-circle.img-responsive { 
+width: 60px; 
+height: 60px; 
+} 
+.sociallogo ul li a img { 
+color: rgb(255, 255, 255); 
+visibility: visible; 
+animation-name: fadeInUp; 
+font-size: 30px; 
+margin-top: 0px; 
+width: 40%; 
+} 
+p { 
+font-size: 12px; 
+line-height: 1.5; 
+margin-bottom: 0px; 
+} 
+.asseenheading { 
+color: rgb(255, 255, 255); 
+visibility: visible; 
+animation-name: fadeInUp; 
+font-size: 30px; 
+margin-top: 13px; 
+margin-left: 80px; 
+} 
+#hdrTxt { 
+font-size: 20px; 
+margin: 5px; 
+margin-left: 70px; 
+} 
+.form-control { 
+display: block; 
+width: 80%; 
+margin-left: 37px; 
+} 
+#registerfrm { 
+display: block; 
+width: 40%; 
+margin-left: 120px; 
+} 
+.container-page { 
+background-color: #161918; 
+color: #fff; 
+margin-top: 0px !important; 
+margin-left: -51px; 
+padding: 20px; 
+margin-right: -153px; 
+margin-bottom: -60px; 
+} 
+dl, ol, ul { 
+margin-top: 0; 
+margin-bottom: 1rem; 
+margin-right: 40px; 
+} 
+.navbar-brand { 
+display: inline-block; 
+padding-top: .3125rem; 
+padding-bottom: .3125rem; 
+margin-right: 1rem; 
+font-size: .75rem !important; 
+line-height: inherit; 
+white-space: nowrap; 
+} 
+#mainNav .navbar-toggler { 
+font-size: 15px; 
+padding: 8px 8px; 
+color: #fff; 
+margin-right: 0px; 
+} 
+header.masthead { 
+position: relative; 
+width: 100%; 
+padding-top: 95px; 
+padding-bottom: 20px; 
+color: #fff; 
+height: auto; 
+min-height: auto; 
+} 
+.home_feature_m_n ul{ margin-right: 0px; } 
+.home_feature_m_n ul li { 
+display: inline-block; 
+margin: 13px 0%; text-align: center; 
+} 
+.home_feature_m_n ul li img{ width: 90%; } 
+} 
+@media (min-width: 768px) and (max-width: 1024px) { 
+.home_top_play { 
+text-align: center !important; 
+} 
+.home_top_play h3 { 
+text-align: center !important; 
+} 
+section.download h2 { 
+font-size: 43px; 
+} 
+.sec_video_bar iframe{ width: 29%; 
+display: inline-block; 
+margin: 0 2%; } 
+.section2nd .card_img{ width: 100%; } 
+.home_card_text h3{ font-size: 29px; } 
+.home_card_text p { 
+font-size: 13px; 
+margin-top: 2px; 
+line-height: 20px; 
+} 
+.card_book_n{ padding: 8px 22px 8px 22px; font-size: 13px; } 
+.home_feature_m_n ul li { 
+display: inline-block; 
+margin: 13px 1%; 
+} 
+} 
+.container-page { 
+background-color: #343837; 
+color: #fff; 
+margin-top: 60px; 
+margin-left: -50px; 
+padding: 20px; 
+margin-right:-153px; 
+} 
+.bar-step { 
+position:absolute;
+
+margin-top:-20px; 
+z-index:1; 
+font-size:12px; 
+} 
+.label-txt { 
+float: left; 
+} 
+.label-line { 
+float: right; 
+background: #fff; 
+height:50px; 
+width:1px; 
+margin-left: 5px; 
+} 
+.label-percent { 
+float: right; 
+margin-left: 5px; 
+} 
+* { 
+margin: 0; 
+padding: 0; 
+} 
+body { 
+background: #222; 
+font-family: Georgia, serif; 
+color: #fff; 
+font-size: 14px; 
+a { 
+color: #ffffcc; 
+text-decoration: none; 
+-webkit-transition: 0.5s; 
+-moz-transition: 0.5s; 
+-o-transition: 0.5s; 
+-ms-transition: 0.5s; 
+transition: 0.5s; 
+} 
+a:hover, a.selected { 
+color: #ffcc00; 
+} 
+h1, h2, h4, h5, h6 { 
+text-align: center; 
+color: #FFF; 
+text-shadow: #000 1px 1px 2px; 
+margin-bottom: 5px; 
+font-family:montserrat; 
+} 
+h1 { 
+font-size: 18px; 
+} 
+h2 { 
+font-size: 14px; 
+} 
+.sociales { 
+text-align: center; 
+margin-bottom: 20px; 
+} 
+#timeline { 
+width: 500px; 
+height: 600px; 
+overflow: hidden; 
+margin: 40px auto; 
+position: relative; 
+background: #000; 
+} 
+#dates { 
+width: 100px; 
+height: 600px; 
+overflow: hidden; 
+float: left; 
+} 
+#dates li { 
+list-style: none; 
+width: 100px; 
+height: 100px; 
+line-height: 100px; 
+font-size: 24px; 
+padding-left: 10px; 
+background: 
+url('http://www.csslab.cl/ejemplos/timelinr/latest/images/biggerdot.png') left center no-repeat; 
+} 
+#dates a { 
+line-height: 38px; 
+padding-bottom: 10px; 
+} 
+#dates .selected { 
+font-size: 38px; 
+} 
+#issues { 
